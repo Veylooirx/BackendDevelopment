@@ -5,7 +5,7 @@ Este documento explica cómo crear una calculadora simple usando el protocolo XM
 ## Requisitos
 
 
-## Guía SERVIDOR (server.py)
+## Guía SERVIDOR (server.py).
 
 ### 1. Importar la Biblioteca necesaria
 
