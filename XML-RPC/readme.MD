@@ -184,7 +184,7 @@ if __name__ == "__main__":
 ```
 
 Ejecutamos el metodo main.
-Esta línea asegura que main() se ejecute solo si el script se ejecuta como el programa principal, ```y no cuando se importa como un módulo``.
+Esta línea asegura que ```main()``` se ejecute solo si el script se ejecuta como el programa principal, ```y no cuando se importa como un módulo```.
 
 Una vez ejecutado el cliente y servidor, podremos hacer operaciones basicas desde el cliente, siempre que el servidor este funcionamiento. 
 
