@@ -2,17 +2,18 @@ Explicacion del Código
 
 1.-     Definición de Estructura Cliente:
 
+ ```go
 type Cliente struct {
     Nombre      string
     FechaInicio time.Time
     FechaFin    time.Time
     MontoPago   float64
 }
-
+ ```
 Esta estructura define al cliente, con campos para su nombre, fecha de inicio y fin del periodo de cobros, y el monto de cada pago.
 
 2.      Función createCliente
-
+ ```go
 func createCliente(db *sql.DB, cliente Cliente) (int, error) {
     var clienteID int
     err := db.QueryRow(`
@@ -24,11 +25,12 @@ func createCliente(db *sql.DB, cliente Cliente) (int, error) {
     }
     return clienteID, nil
 }
+ ```
 
 Esta función inserta los datos del cliente en la tabla clientes y devuelve su ID. Usa una consulta SQL INSERT INTO y devuelve el cliente_id generado para identificar al cliente en la base de datos.
 
 3.      Función generarPagos
-
+ ```go
 func generarPagos(db *sql.DB, clienteID int, fechaInicio, fechaFin time.Time) error {
     fechaCobro := fechaInicio
     for fechaCobro.Before(fechaFin) || fechaCobro.Equal(fechaFin) {
@@ -43,6 +45,8 @@ func generarPagos(db *sql.DB, clienteID int, fechaInicio, fechaFin time.Time) er
     }
     return nil
 }
+ ```
+
 Esta función genera las fechas de cobro para un cliente. Inicia desde fechaInicio y va añadiendo nuevas fechas de cobro en la tabla pagos, hasta alcanzar fechaFin. La línea fechaCobro = fechaCobro.AddDate(0, 0, 7) agrega 7 días (una semana) a fechaCobro, por lo que actualmente se configura para pagos semanales.
 
 Cambios para otras Frecuencias:
@@ -54,6 +58,7 @@ Para mayor flexibilidad, puedes añadir un parámetro adicional de tipo string (
 
 4.      Función aplicarPago
 
+ ```go
 func aplicarPago(db *sql.DB, clienteID int, fechaCobro time.Time) error {
     _, err := db.Exec(`
         UPDATE pagos SET pagado = TRUE 
@@ -64,10 +69,12 @@ func aplicarPago(db *sql.DB, clienteID int, fechaCobro time.Time) error {
     }
     return nil
 }
+ ```
 Esta función marca un pago como “pagado” en la tabla pagos. Recibe el clienteID y una fecha de cobro (fechaCobro), actualizando el campo pagado a TRUE para la fecha específica.
 
 5.      Función reportePagos
 
+ ```go
 func reportePagos(db *sql.DB, clienteID int) error {
     rows, err := db.Query(`
         SELECT fecha_cobro, pagado 
@@ -95,5 +102,6 @@ func reportePagos(db *sql.DB, clienteID int) error {
     }
     return nil
 }
+ ```
 Esta función genera el reporte de pagos de un cliente. Consulta la tabla pagos para obtener todas las fechas de cobro y su estado de pago (pagado). Luego imprime el estado de cada fecha, mostrando si está “pendiente” o “pagado”.
 
