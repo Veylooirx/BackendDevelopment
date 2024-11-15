@@ -54,7 +54,6 @@ Para ajustar la frecuencia de los pagos, se debe cambiar la última línea dentr
 
 Para pagos mensuales: Cambia fechaCobro.AddDate(0, 0, 7) a fechaCobro.AddDate(0, 1, 0), lo cual agrega un mes a cada fechaCobro.
 Para pagos anuales: Cambia fechaCobro.AddDate(0, 0, 7) a fechaCobro.AddDate(1, 0, 0), lo cual agrega un año a cada fechaCobro.
-Para mayor flexibilidad, puedes añadir un parámetro adicional de tipo string (ej. frecuencia) que determine el valor de AddDate.
 
 4.      Función aplicarPago
 
