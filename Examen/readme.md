@@ -1,6 +1,6 @@
-Explicacion del Código
+#Explicacion del Código
 
-1.-     Definición de Estructura Cliente:
+## 1. Definición de Estructura Cliente:
 
  ```go
 type Cliente struct {
@@ -12,7 +12,7 @@ type Cliente struct {
  ```
 Esta estructura define al cliente, con campos para su nombre, fecha de inicio y fin del periodo de cobros, y el monto de cada pago.
 
-2.      Función createCliente
+## 2. Función createCliente
  ```go
 func createCliente(db *sql.DB, cliente Cliente) (int, error) {
     var clienteID int
@@ -29,7 +29,7 @@ func createCliente(db *sql.DB, cliente Cliente) (int, error) {
 
 Esta función inserta los datos del cliente en la tabla clientes y devuelve su ID. Usa una consulta SQL INSERT INTO y devuelve el cliente_id generado para identificar al cliente en la base de datos.
 
-3.      Función generarPagos
+## 3. Función generarPagos
  ```go
 func generarPagos(db *sql.DB, clienteID int, fechaInicio, fechaFin time.Time) error {
     fechaCobro := fechaInicio
@@ -55,7 +55,7 @@ Para ajustar la frecuencia de los pagos, se debe cambiar la última línea dentr
 Para pagos mensuales: Cambia fechaCobro.AddDate(0, 0, 7) a fechaCobro.AddDate(0, 1, 0), lo cual agrega un mes a cada fechaCobro.
 Para pagos anuales: Cambia fechaCobro.AddDate(0, 0, 7) a fechaCobro.AddDate(1, 0, 0), lo cual agrega un año a cada fechaCobro.
 
-4.      Función aplicarPago
+## 4. Función aplicarPago
 
  ```go
 func aplicarPago(db *sql.DB, clienteID int, fechaCobro time.Time) error {
@@ -71,7 +71,7 @@ func aplicarPago(db *sql.DB, clienteID int, fechaCobro time.Time) error {
  ```
 Esta función marca un pago como “pagado” en la tabla pagos. Recibe el clienteID y una fecha de cobro (fechaCobro), actualizando el campo pagado a TRUE para la fecha específica.
 
-5.      Función reportePagos
+## 5. Función reportePagos
 
  ```go
 func reportePagos(db *sql.DB, clienteID int) error {
